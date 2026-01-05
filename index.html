@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlueHorizon | Premium Real Estate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="navbar">
+    <div class="logo">Blue<span>Horizon</span></div>
+    <nav>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="properties.html">Properties</a></li>
+            <li><a href="agents.html">Agents</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+    <button class="btn-primary">List Property</button>
+</header>
+
+    <section class="hero">
+        <div class="hero-overlay">
+            <h1>Exquisite Homes. <br><span>Seamless Living.</span></h1>
+            <p>The most sophisticated real estate search in the world.</p>
+            <div class="filter-box">
+                <input type="text" id="loc-search" placeholder="City, Zip, or Neighborhood">
+                <select id="type-search">
+                    <option value="">Property Type</option>
+                    <option value="Villa">Villa</option>
+                    <option value="Apartment">Apartment</option>
+                </select>
+                <button id="search-trigger">Search Now</button>
+            </div>
+        </div>
+    </section>
+
+    <main class="container">
+        <h2 class="section-title">Featured Collections</h2>
+        <div id="property-grid" class="property-grid">
+            </div>
+
+        <h2 class="section-title">Explore by Area</h2>
+        <div id="map-container"></div>
+    </main>
+
+    <section id="about" class="about-contact">
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-text">
+                <h2 class="section-title">About BlueHorizon</h2>
+                <p>We are a boutique real estate firm dedicated to luxury and excellence. Our mission is to connect sophisticated buyers with extraordinary properties that define modern living.</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <span>Email Us Directly</span>
+                            <a href="mailto:augustinedominic778@gmail.com">augustinedominic778@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <span>Call Our Office</span>
+                            <a href="tel:+1234567890">+1 (234) 567-890</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80" alt="Our Office">
+            </div>
+        </div>
+    </div>
+</section>
+    <footer class="footer">
+        <p>&copy; 2025 BlueHorizon Luxury Real Estate. Built for Excellence.</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

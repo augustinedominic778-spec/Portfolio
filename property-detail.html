@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="blue-theme">
+
+    <section class="page-header" style="height: 50vh;">
+        <div class="header-overlay">
+            <button class="btn-back" onclick="history.back()" style="position: absolute; top: 20px; left: 20px; z-index: 100; color: white;">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+            <h1>The Azure <span>Penthouse</span></h1>
+            <p><i class="fas fa-map-marker-alt"></i> New York, Midtown</p>
+        </div>
+    </section>
+
+    <main class="container" style="margin-top: 30px;">
+        <div class="gallery-grid">
+            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800" alt="Main Living Area">
+            <div style="display: flex; flex-direction: column; gap: 15px; height: 100%;">
+                <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800" alt="Bedroom" style="flex: 1; object-fit: cover; width: 100%;">
+                <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800" alt="Kitchen" style="flex: 1; object-fit: cover; width: 100%;">
+            </div>
+        </div>
+
+        <div class="detail-info">
+            <div class="description">
+                <h2 style="margin-bottom: 20px; color: var(--primary-blue);">About this Property</h2>
+                <p class="desc-text" style="color: #333;">
+                    Experience the pinnacle of luxury living in this stunning penthouse located in the heart of Midtown. 
+                    Featuring floor-to-ceiling windows, a private terrace, and state-of-the-art amenities, this residence 
+                    offers an unparalleled lifestyle. The open-concept living area is perfect for entertaining, while the 
+                    master suite provides a serene retreat from the city.
+                </p>
+                
+                <div class="prop-stats" style="margin-top: 30px; display: flex; gap: 30px; font-size: 1.1rem; color: var(--accent-blue);">
+                    <span><i class="fas fa-bed"></i> 3 Bedrooms</span>
+                    <span><i class="fas fa-bath"></i> 2 Bathrooms</span>
+                    <span><i class="fas fa-ruler-combined"></i> 2,500 sq ft</span>
+                </div>
+            </div>
+
+            <div class="contact-card" style="background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <h3 style="color: var(--primary-blue); margin-bottom: 10px;">Interested?</h3>
+                <p style="margin-bottom: 20px; color: #666;">Schedule a private viewing with our agents today.</p>
+                <a href="contact.html" class="btn-glow" style="display: block; text-align: center;">
+                    <i class="fas fa-envelope"></i> Request Info
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
