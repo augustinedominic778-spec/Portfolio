@@ -182,18 +182,39 @@ span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill
     
     .contact-grid { grid-template-columns: 1fr; padding: 30px 0; gap: 30px; }
     .contact-text-area { text-align: center; }
-    .contact-text-area h1 { font-size: 2rem; margin-bottom: 15px; }
-    .contact-glass-form { padding: 25px; }
-    .input-group input, textarea { font-size: 16px; }
-    .btn-submit { font-size: 18px; padding: 16px; }
+    .contact-text-area h1 { font-size: 3rem; margin-bottom: 20px; line-height: 1.2; }
+    .contact-text-area p { font-size: 1.2rem; margin-bottom: 20px; }
+    .info-item { font-size: 1.2rem; display: flex; flex-direction: column; gap: 10px; }
+    .info-item a { word-break: break-all; }
+    .contact-glass-form { padding: 30px 20px; }
+    .input-group input, textarea { font-size: 18px; padding: 18px; }
+    .btn-submit { font-size: 20px; padding: 20px; }
 
     .gallery-grid { grid-template-columns: 1fr; height: auto; }
     .detail-info { grid-template-columns: 1fr; }
     .contact-card { position: static; margin-top: 30px; padding: 30px; font-size: 1.1rem; }
 
-    .btn-back { position: static !important; margin: 15px; width: fit-content; }
+    .btn-back { position: static !important; margin: 15px; width: fit-content; font-size: 1.1rem; padding: 12px 30px; }
 
     .interactive-grid, .property-grid { grid-template-columns: 1fr; padding: 30px 0; }
     .page-header { height: auto; min-height: 30vh; padding: 60px 20px; }
     .page-header h1 { font-size: 2rem; }
+}
+/* Default styles for mobile (Mobile First) */
+body {
+  font-size: 16px;
+}
+
+/* Styles for tablets and larger (screens wider than 768px) */
+@media (min-width: 768px) {
+  body {
+    font-size: 18px;
+  }
+}
+
+/* Styles for desktops (screens wider than 1024px) */
+@media (min-width: 1024px) {
+  .container {
+    width: 960px;
+  }
 }
