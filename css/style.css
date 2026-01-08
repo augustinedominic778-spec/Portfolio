@@ -106,7 +106,7 @@ span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill
 .prop-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
 .prop-card:hover .prop-img img { transform: scale(1.1); }
 .price-badge { display: inline-block; margin-bottom: 10px; background: var(--grad); padding: 5px 15px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; }
-.prop-info { padding: 25px; }
+.prop-info { padding: 25px; color: var(--text-dark); }
 
 /* Agent Spotlight */
 .agent-spotlight { padding: 300px 0; }
