@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="inner-pages.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -13,50 +12,36 @@
 
     <section class="page-header">
         <div class="header-overlay">
-            <button class="btn-back" style="position: absolute; top: 20px; left: 20px; z-index: 100; color: white;">
+            <button class="btn-back" style="position: absolute; top: 40px; left: 20px; z-index: 100; color: white;">
     <i class="fas fa-arrow-left"></i> Back
 </button>
 
-            <h1>Exclusive <span>Apartments</span></h1>
-            <p>Sophisticated urban living at its finest.</p>
+            <h1>Exclusive <span>Properties</span></h1>
+            <p>Discover our curated collection of luxury homes.</p>
+            
+            <div class="filter-box" style="margin-top: 0;">
+                <input type="text" id="loc-search" placeholder="City, Zip, or Neighborhood">
+                <select id="type-search">
+                    <option value="">Property Type</option>
+                    <option value="Villa">Villa</option>
+                    <option value="Apartment">Apartment</option>
+                    <option value="Estate">Estate</option>
+                    <option value="Loft">Loft</option>
+                </select>
+                <button id="search-trigger">Search Now</button>
+            </div>
         </div>
     </section>
 
-    <main>
-        <div class="interactive-grid">
-            <a href="property-detail.html" class="prop-card" style="text-decoration: none; color: inherit; display: block;">
-                <div class="prop-img">
-                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800"
-                        alt="Apartment">
-                </div>
-                <div class="prop-info">
-                    <div class="price-badge">$1,200,000</div>
-                    <h3>The Azure Penthouse</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> New York, Midtown</p>
-                    <div class="prop-stats">
-                        <span><i class="fas fa-bed"></i> 3 Bed</span>
-                        <span><i class="fas fa-bath"></i> 2 Bath</span>
-                    </div>
-                </div>
-            </a>
-
-            <a href="property-detail.html" class="prop-card" style="text-decoration: none; color: inherit; display: block;">
-                <div class="prop-img">
-                    <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800"
-                        alt="Apartment">
-                </div>
-                <div class="prop-info">
-                    <div class="price-badge">$850,000</div>
-                    <h3>Skyline View Studio</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Chicago, Downtown</p>
-                    <div class="prop-stats">
-                        <span><i class="fas fa-bed"></i> 1 Bed</span>
-                        <span><i class="fas fa-bath"></i> 1 Bath</span>
-                    </div>
-                </div>
-            </a>
+    <main class="container" style="margin-top: 40px;">
+        <div id="property-grid" class="property-grid"></div>
+        <div id="load-more-container" style="text-align: center; margin-top: 30px; display: none;">
+            <button id="load-more-btn" class="btn-primary" style="padding: 12px 30px; font-size: 16px;">Load More Properties</button>
         </div>
     </main>
+    <footer class="footer">
+        <p>&copy; 2025 BlueHorizon Luxury Real Estate. Built for Excellence.</p>
+    </footer>
     <script src="script.js"></script>
 </body>
 
