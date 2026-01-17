@@ -286,6 +286,12 @@ const formatPrice = (price, currency = 'USD') => {
     }).format(price);
 };
 
+// Helper: Convert to USD for filtering (Approximate rates)
+const convertToUSD = (price, currency = 'USD') => {
+    const rates = { 'USD': 1, 'EUR': 1.1, 'GBP': 1.3, 'AUD': 0.65, 'CHF': 1.1, 'JPY': 0.007 };
+    return price * (rates[currency] || 1);
+};
+
 // 2. INITIALIZE PROPERTY GRID (Properties Page)
 function initPropertyGrid() {
     const grid = document.getElementById('property-grid');
@@ -349,13 +355,13 @@ function initPropertyGrid() {
         
         const filtered = properties.filter(p => {
             const isFav = localStorage.getItem(`fav_${p.id}`) === 'true';
-            // Simple currency conversion approximation for filtering (1 EUR = 1.1 USD, 1 GBP = 1.3 USD) - Optional enhancement
-            // For now, we assume raw numbers for simplicity or you can add a converter helper.
+            const priceUSD = convertToUSD(p.price, p.currency);
+
             return (p.location.toLowerCase().includes(loc)) && 
                    (type === "" || p.type === type) &&
                    (!showFavs || isFav) &&
-                   (p.price >= minPrice) &&
-                   (maxPrice ? p.price <= maxPrice : true);
+                   (priceUSD >= minPrice) &&
+                   (maxPrice ? priceUSD <= maxPrice : true);
         });
 
         // Sorting Logic
@@ -405,7 +411,7 @@ function renderProperties(data) {
                 <div class="card-favorite ${isFav ? 'active' : ''}" onclick="toggleFavorite(event, ${p.id})">
                     <i class="${isFav ? 'fas' : 'far'} fa-heart"></i>
                 </div>
-                <img src="${p.mainImg}" class="card-img" alt="property">
+                <img src="${p.mainImg}" class="card-img" alt="property" loading="lazy">
                 <div class="card-body">
                     <div class="card-price">${formatPrice(p.price, p.currency)}</div>
                     <h3 class="card-title">${p.title}</h3>
@@ -479,7 +485,10 @@ function initDetail() {
         ${extraImages ? `<div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap:15px; margin-top:15px;" id="extra-gallery">${extraImages}</div>` : ''}
         <div class="detail-info">
             <div class="info-text">
-                <h1>${p.title}</h1>
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:15px; margin-bottom: 10px;">
+                    <h1 style="margin-bottom:0;">${p.title}</h1>
+                    <button id="btn-share" class="btn-primary" style="padding: 8px 15px; font-size: 14px; white-space: nowrap; height:fit-content;"><i class="fas fa-share-alt"></i> Share</button>
+                </div>
                 <p style="color:var(--accent-blue); font-weight:700; font-size:24px;">${formatPrice(p.price, p.currency)}</p>
                 <p>${p.location}</p>
                 <div class="card-meta" style="margin: 20px 0; font-size: 18px;">
@@ -496,10 +505,14 @@ function initDetail() {
             </div>
             
             <div class="contact-card">
-                <h3>Interested in this property?</h3>
-                <p style="margin-bottom:20px;">Contact our elite agents today.</p>
-                <input type="text" id="contact-name" placeholder="Your Name" style="width:100%; padding:10px; margin-bottom:10px; border-radius:5px; border:1px solid #ddd;">
-                <button id="btn-request" class="btn-primary" style="width:100%">Request a Tour</button>
+                <h3 style="margin-bottom:10px;">Interested in this property?</h3>
+                <p style="margin-bottom:20px; color:var(--gray); font-size:0.9rem;">Fill out the form below to schedule a private viewing with our agents.</p>
+                <div style="display:flex; flex-direction:column; gap:10px;">
+                    <input type="text" id="contact-name" placeholder="Your Name" style="width:100%; padding:12px; border-radius:6px; border:1px solid #ddd; outline:none;">
+                    <input type="email" id="contact-email" placeholder="Your Email" style="width:100%; padding:12px; border-radius:6px; border:1px solid #ddd; outline:none;">
+                    <input type="tel" id="contact-phone" placeholder="Phone Number" style="width:100%; padding:12px; border-radius:6px; border:1px solid #ddd; outline:none;">
+                </div>
+                <button id="btn-request" class="btn-primary" style="width:100%; margin-top:15px; padding:12px;">Request a Tour</button>
             </div>
             
             <!-- Mortgage Calculator -->
@@ -515,6 +528,26 @@ function initDetail() {
             </div>
         </div>
     `;
+
+    // Inject Similar Properties Section
+    const similar = properties.filter(item => item.type === p.type && item.id !== p.id).slice(0, 3);
+    if (similar.length > 0) {
+        const similarHtml = similar.map(s => `
+            <a href="detail.html?id=${s.id}" class="card" style="text-decoration:none; color:inherit;">
+                <img src="${s.mainImg}" class="card-img" style="height:200px;">
+                <div class="card-body">
+                    <div class="card-price" style="font-size:18px;">${formatPrice(s.price, s.currency)}</div>
+                    <h4 style="font-size:16px; margin:5px 0;">${s.title}</h4>
+                    <p style="font-size:14px; color:var(--gray);"><i class="fas fa-map-marker-alt"></i> ${s.location}</p>
+                </div>
+            </a>
+        `).join('');
+
+        container.insertAdjacentHTML('beforeend', `
+            <div class="section-title" style="margin-top:60px; font-size:24px;">Similar Properties</div>
+            <div class="property-grid" style="grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap:20px;">${similarHtml}</div>
+        `);
+    }
 
     // Lightbox Logic
     if (!document.getElementById('lightbox')) {
@@ -578,6 +611,22 @@ function initDetail() {
         // Run once on load
         calculateMortgage();
     }
+
+    // Share Button Logic
+    const btnShare = document.getElementById('btn-share');
+    if (btnShare) {
+        btnShare.onclick = () => {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                btnShare.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    btnShare.innerHTML = '<i class="fas fa-share-alt"></i> Share';
+                }, 2000);
+            }).catch(err => {
+                alert('Failed to copy link.');
+                console.error('Could not copy text: ', err);
+            });
+        };
+    }
 }
 
 // 4. INITIALIZE BACK BUTTONS
@@ -626,6 +675,25 @@ function initHomeSearch() {
     }
 }
 
+// 7. INITIALIZE BRANDING (Logo Enhancement)
+function initBranding() {
+    const logo = document.querySelector('.logo');
+    if (logo && !logo.querySelector('.tagline')) {
+        const originalText = logo.innerHTML;
+        logo.innerHTML = `
+            <div style="display:flex; align-items:center; gap:12px;">
+                <i class="fas fa-gem" style="font-size: 28px; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
+                <div style="display:flex; flex-direction:column;">
+                    <div style="font-family:'Playfair Display', serif; font-size:24px; font-weight:700; line-height:1; color:var(--primary-blue);">
+                        ${originalText}
+                    </div>
+                    <div class="tagline" style="font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--gray); font-weight:500; margin-top:2px;">Luxury Real Estate</div>
+                </div>
+            </div>
+        `;
+    }
+}
+
 // Controller
 document.addEventListener('DOMContentLoaded', () => {
     initPropertyGrid();
@@ -633,4 +701,5 @@ document.addEventListener('DOMContentLoaded', () => {
     initBackButtons();
     initMap();
     initHomeSearch();
+    initBranding();
 });

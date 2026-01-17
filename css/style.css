@@ -3,6 +3,7 @@
     --primary-blue: #0f172a; /* Navy Blue */
     --accent-blue: #2563eb;  /* Royal Blue */
     --soft-blue: #dbeafe;
+    --light-blue: #f0f9ff;
     --text-dark: #1e293b;
     --white: #ffffff;
     --gray: #64748b;
@@ -20,7 +21,7 @@ body { font-family: 'Poppins', sans-serif; background: #f8fafc; color: var(--tex
 
 /* Navbar */
 .navbar { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: var(--white); box-shadow: var(--shadow); position: sticky; top: 0; z-index: 1000; }
-.logo { font-size: 24px; font-weight: 700; color: var(--primary-blue); }
+.logo { text-decoration: none; }
 .logo span { color: var(--accent-blue); }
 .nav-links { display: flex; list-style: none; gap: 30px; }
 .nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 500; transition: 0.3s; }
