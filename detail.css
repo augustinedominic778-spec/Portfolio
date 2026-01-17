@@ -1,5 +1,5 @@
 /* Interactive Property Cards */
-.interactive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; padding: 50px 0; }
+.interactive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 50px 0; }
 .prop-card {
     background: rgba(244, 244, 244, 0.783);
     border-radius: 20px;
