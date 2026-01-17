@@ -694,86 +694,6 @@ function initBranding() {
     }
 }
 
-// 8. LIST PROPERTY MODAL
-function initListProperty() {
-    // 1. Create Modal HTML
-    if (!document.getElementById('list-modal')) {
-        const modalHtml = `
-            <div id="list-modal" class="modal">
-                <div class="modal-content">
-                    <span class="modal-close">&times;</span>
-                    <h2 style="margin-bottom:10px; font-family:'Playfair Display', serif;">List Your Property</h2>
-                    <p style="color:var(--gray); margin-bottom:25px; font-size:0.9rem;">Submit your property details for review by our agents.</p>
-                    <form id="list-form">
-                        <div class="form-group">
-                            <label>Property Title</label>
-                            <input type="text" required placeholder="e.g. Seaside Villa">
-                        </div>
-                        <div class="form-group">
-                            <label>Location</label>
-                            <input type="text" required placeholder="City, Country">
-                        </div>
-                        <div class="form-group">
-                            <label>Expected Price ($)</label>
-                            <input type="number" required placeholder="0.00">
-                        </div>
-                        <button type="submit" class="btn-primary" style="width:100%; padding:15px;">Submit Listing</button>
-                    </form>
-                </div>
-            </div>
-        `;
-        document.body.insertAdjacentHTML('beforeend', modalHtml);
-    }
-
-    const modal = document.getElementById('list-modal');
-    const closeBtn = modal.querySelector('.modal-close');
-    const form = document.getElementById('list-form');
-
-    // 2. Find the Trigger Button (Try ID 'btn-list' first, then search by text)
-    let listBtn = document.getElementById('btn-list');
-    if (!listBtn) {
-        const buttons = Array.from(document.querySelectorAll('a, button'));
-        listBtn = buttons.find(b => b.textContent.trim().toLowerCase() === 'list property');
-    }
-
-    if (listBtn) {
-        listBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            modal.classList.add('active');
-        });
-    }
-
-    // 3. Close Logic
-    if (closeBtn) closeBtn.onclick = () => modal.classList.remove('active');
-    if (modal) modal.onclick = (e) => {
-        if (e.target === modal) modal.classList.remove('active');
-    };
-
-    // 4. Form Submit Logic
-    if (form) form.onsubmit = (e) => {
-        e.preventDefault();
-        const btn = form.querySelector('button');
-        const originalText = btn.innerText;
-        
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-        btn.disabled = true;
-
-        setTimeout(() => {
-            btn.innerHTML = '<i class="fas fa-check"></i> Submitted!';
-            btn.style.background = '#10b981'; // Green
-            
-            setTimeout(() => {
-                modal.classList.remove('active');
-                btn.innerText = originalText;
-                btn.style.background = '';
-                btn.disabled = false;
-                form.reset();
-                alert("Thank you! Our agents will contact you shortly to finalize your listing.");
-            }, 1500);
-        }, 1500);
-    };
-}
-
 // Controller
 document.addEventListener('DOMContentLoaded', () => {
     initPropertyGrid();
@@ -782,5 +702,4 @@ document.addEventListener('DOMContentLoaded', () => {
     initMap();
     initHomeSearch();
     initBranding();
-    initListProperty();
 });
