@@ -83,6 +83,7 @@ body { font-family: 'Poppins', sans-serif; background: #f8fafc; color: var(--tex
 .detail-info { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
 .desc-text { line-height: 1.8; color: var(--gray); margin-top: 20px; }
 .contact-card { background: var(--light-blue); padding: 30px; border-radius: 12px; border: 1px solid var(--accent-blue); }
+.contact-card h3 { color: var(--primary-blue); }
 
 /* Mortgage Calculator */
 .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
