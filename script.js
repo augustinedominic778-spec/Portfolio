@@ -277,6 +277,10 @@ const properties = [
     }
 ];
 
+// --- LOAD USER LISTED PROPERTIES (From LocalStorage) ---
+const storedProperties = JSON.parse(localStorage.getItem('blueHorizon_properties')) || [];
+properties.push(...storedProperties);
+
 // Helper: Format Price
 const formatPrice = (price, currency = 'USD') => {
     return new Intl.NumberFormat('en-US', {
@@ -694,6 +698,91 @@ function initBranding() {
     }
 }
 
+// 8. INITIALIZE CONTACT PAGE (To be dynamic)
+function initContactPage() {
+    // Check if we are on the contact page by looking for a unique element
+    const contactForm = document.querySelector('.contact-glass-form');
+    if (!contactForm) return;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const source = urlParams.get('source');
+
+    if (source === 'list-property') {
+        const heading = document.querySelector('.contact-text-area h1');
+        const subheading = document.querySelector('.contact-text-area p');
+        const textarea = document.querySelector('.contact-glass-form textarea');
+
+        if (heading) {
+            // The span is used for the gradient text, so we need to preserve it
+            heading.innerHTML = "List Your <span>Property</span>";
+        }
+        if (subheading) {
+            subheading.textContent = "Tell us about your property and we'll connect you with a dedicated agent.";
+        }
+        if (textarea) {
+            textarea.placeholder = "Please provide the address of the property and any other details you'd like to share...";
+        }
+    }
+}
+
+// 9. INITIALIZE LIST PROPERTY PAGE
+function initListPropertyPage() {
+    const form = document.getElementById('listing-form');
+    if (!form) return;
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const title = document.getElementById('prop-title').value;
+        const price = parseFloat(document.getElementById('prop-price').value);
+        const type = document.getElementById('prop-type').value;
+        const location = document.getElementById('prop-location').value;
+        const fileInput = document.getElementById('prop-image');
+        const beds = document.getElementById('prop-beds').value;
+        const baths = document.getElementById('prop-baths').value;
+        const sqft = document.getElementById('prop-sqft').value;
+        const desc = document.getElementById('prop-desc').value;
+
+        if (fileInput.files && fileInput.files[0]) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const img = e.target.result; // This is the Base64 image string
+
+                const newProperty = {
+                    id: Date.now(),
+                    title: title,
+                    price: price,
+                    type: type,
+                    location: location,
+                    lat: 0, lng: 0,
+                    mainImg: img,
+                    images: [img, img, img],
+                    beds: beds, baths: baths, sqft: sqft,
+                    yearBuilt: new Date().getFullYear(),
+                    garage: "N/A",
+                    amenities: ["User Listed"],
+                    desc: desc
+                };
+
+                try {
+                    const currentStored = JSON.parse(localStorage.getItem('blueHorizon_properties')) || [];
+                    currentStored.push(newProperty);
+                    localStorage.setItem('blueHorizon_properties', JSON.stringify(currentStored));
+
+                    alert('Property Listed Successfully! It will now appear on the home page.');
+                    window.location.href = 'index.html';
+                } catch (error) {
+                    alert('The image is too large to save in the browser. Please try a smaller image.');
+                    console.error(error);
+                }
+            };
+
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+    });
+}
+
 // Controller
 document.addEventListener('DOMContentLoaded', () => {
     initPropertyGrid();
@@ -702,4 +791,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initMap();
     initHomeSearch();
     initBranding();
+    initContactPage();
+    initListPropertyPage();
 });
