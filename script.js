@@ -783,6 +783,35 @@ function initListPropertyPage() {
     });
 }
 
+// 10. INITIALIZE THEME TOGGLE (Dark/Light Mode)
+function initTheme() {
+    const themeBtn = document.createElement('button');
+    themeBtn.className = 'btn-theme';
+    themeBtn.innerHTML = '<i class="fas fa-moon"></i>';
+    themeBtn.title = "Toggle Dark Mode";
+
+    const navActions = document.querySelector('.nav-actions');
+    const nav = document.querySelector('.navbar');
+    if (navActions) {
+        navActions.appendChild(themeBtn);
+    } else if (nav) {
+        nav.appendChild(themeBtn);
+    }
+
+    // Check LocalStorage
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeBtn.innerHTML = '<i class="fas fa-sun"></i>';
+    }
+
+    themeBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        themeBtn.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    });
+}
+
 // Controller
 document.addEventListener('DOMContentLoaded', () => {
     initPropertyGrid();
@@ -793,4 +822,5 @@ document.addEventListener('DOMContentLoaded', () => {
     initBranding();
     initContactPage();
     initListPropertyPage();
+    initTheme();
 });

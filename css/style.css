@@ -12,18 +12,39 @@
     --royal-blue: #2050b6;
     --electric: #06b6d4;
     --grad: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
+    
+    /* Dynamic Theme Variables */
+    --bg-body: #f8fafc;
+    --bg-surface: #ffffff;
+    --text-main: #1e293b;
+}
+
+body.dark-mode {
+    --bg-body: #0f172a;
+    --bg-surface: #1e293b;
+    --text-main: #f1f5f9;
+    --text-dark: #e2e8f0;
+    --gray: #94a3b8;
+    --white: #1e293b; /* Remap white to dark surface */
+    --light-blue: #1e293b;
+    --primary-blue: #f8fafc; /* Logo text color */
+    --shadow: 0 10px 25px rgba(0,0,0,0.5);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Poppins', sans-serif; background: #f8fafc; color: var(--text-dark); }
+body { font-family: 'Poppins', sans-serif; background: var(--bg-body); color: var(--text-dark); transition: background 0.3s, color 0.3s; }
 
 .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
 
 /* Navbar */
-.navbar { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: var(--white); box-shadow: var(--shadow); position: sticky; top: 0; z-index: 1000; }
+.navbar { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: var(--bg-surface); box-shadow: var(--shadow); position: sticky; top: 0; z-index: 1000; transition: background 0.3s; }
 .logo { font-size: 24px; font-weight: 700; color: var(--primary-blue); }
 .logo { text-decoration: none; }
 .logo span { color: var(--accent-blue); }
+.btn-theme { background: transparent; border: 1px solid var(--accent-blue); color: var(--accent-blue); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-left: 15px; transition: 0.3s; }
+.nav-actions { display: flex; align-items: center; }
+.btn-theme:hover { background: var(--accent-blue); color: white; }
+
 .nav-links { display: flex; list-style: none; gap: 30px; }
 .nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 500; transition: 0.3s; }
 .nav-links a:hover, .nav-links a.active { color: var(--accent-blue); }
@@ -39,8 +60,8 @@ body { font-family: 'Poppins', sans-serif; background: #f8fafc; color: var(--tex
 .hero h1 { font-size: 48px; margin-bottom: 10px; line-height: 1.2; }
 .hero h1 span { color: var(--accent-blue); }
 
-.filter-box { background: white; padding: 15px; border-radius: 12px; display: flex; gap: 10px; margin-top: 30px; box-shadow: var(--shadow); }
-.filter-box input, .filter-box select { padding: 12px; border: 1px solid #ddd; border-radius: 6px; outline: none; }
+.filter-box { background: var(--bg-surface); padding: 15px; border-radius: 12px; display: flex; gap: 10px; margin-top: 30px; box-shadow: var(--shadow); }
+.filter-box input, .filter-box select { padding: 12px; border: 1px solid #ddd; border-radius: 6px; outline: none; background: var(--bg-surface); color: var(--text-dark); }
 .filter-box button { background: var(--accent-blue); color: white; border: none; padding: 12px 25px; border-radius: 6px; font-weight: 600; cursor: pointer; }
 
 /* Grid */
@@ -51,7 +72,7 @@ body { font-family: 'Poppins', sans-serif; background: #f8fafc; color: var(--tex
 
 /* Card */
 @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-.card { background: white; border-radius: 15px; overflow: hidden; box-shadow: var(--shadow); transition: 0.3s; text-decoration: none; color: inherit; position: relative; animation: fadeIn 0.5s ease forwards; }
+.card { background: var(--bg-surface); border-radius: 15px; overflow: hidden; box-shadow: var(--shadow); transition: 0.3s; text-decoration: none; color: inherit; position: relative; animation: fadeIn 0.5s ease forwards; }
 .card:hover { transform: translateY(-10px); }
 .card-favorite {
     position: absolute;
@@ -82,7 +103,7 @@ body { font-family: 'Poppins', sans-serif; background: #f8fafc; color: var(--tex
 .gallery-grid img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
 .detail-info { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
 .desc-text { line-height: 1.8; color: var(--gray); margin-top: 20px; }
-.contact-card { background: var(--light-blue); padding: 30px; border-radius: 12px; border: 1px solid var(--accent-blue); }
+.contact-card { background: var(--light-blue); padding: 30px; border-radius: 12px; border: 1px solid var(--accent-blue); transition: background 0.3s; }
 .contact-card h3 { color: var(--primary-blue); }
 
 /* Mortgage Calculator */
@@ -100,12 +121,6 @@ body { font-family: 'Poppins', sans-serif; background: #f8fafc; color: var(--tex
 #map-container { height: 400px; border-radius: 15px; z-index: 1; }
 .footer { background: var(--primary-blue); color: white; text-align: center; padding: 40px; margin-top: 40px; }
 
-body.blue-theme {
-    background-color: var(--deep-blue);
-    color: var(--white);
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-}
 
 h1, h2 { font-family: 'Playfair Display', serif; }
 span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
@@ -153,7 +168,7 @@ span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill
 
 /* Contact Form Lively UI */
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; padding: 100px 0; }
-.contact-glass-form { background: rgb(255, 255, 255); backdrop-filter: blur(10px); padding: 40px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.1); }
+.contact-glass-form { background: var(--bg-surface); backdrop-filter: blur(10px); padding: 40px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, 0.1); }
 .input-group input, textarea {
     width: 100%; background: transparent; border: 1px solid #e9e4e4; padding: 15px; border-radius: 10px; color: rgb(37, 35, 35); margin-bottom: 20px; outline: none; transition: 0.3s;
 }
